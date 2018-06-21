@@ -1,7 +1,9 @@
 // 导演类，控制游戏的逻辑
+import {DataStore} from "./base/DataStore.js";
+
 export class Director {
     constructor() {
-        console.log('构造器初始化');
+        this.dataStore = DataStore.getInstance();
     }
 
     // 导演类单例模式的实现
@@ -10,5 +12,13 @@ export class Director {
             Director.instance = new Director();
         }
         return Director.instance;
+    }
+
+    run() {
+        this.dataStore.get('background').draw();
+        this.dataStore.get('land').draw();
+        let timer = requestAnimationFrame(() => this.run());
+        this.dataStore.put('timer', timer);
+        // cancelAnimationFrame(this.dataStore.get('timer'));
     }
 }
