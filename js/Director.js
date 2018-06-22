@@ -18,7 +18,7 @@ export class Director {
     }
 
     createPencil() {
-        const minTop = window.innerHeight / 8;
+        const minTop = window.innerHeight / 6;
         const maxTop = window.innerHeight / 2;
         const top = minTop + Math.random() * (maxTop - minTop);
         this.dataStore.get('pencils').push(new UpPencil(top));
@@ -27,6 +27,17 @@ export class Director {
 
     run() {
         this.dataStore.get('background').draw();
+        const pencils = this.dataStore.get('pencils');
+        if(pencils[0].x + pencils[0].width <= 0 && pencils.length === 4) {
+            pencils.shift(); // 把数组的第一个元素推出
+            pencils.shift();
+        }
+
+        if(pencils[0].x <= (window.innerWidth - pencils[0].width) / 2
+            && pencils.length === 2) {
+            this.createPencil();
+        }
+
         this.dataStore.get('pencils').forEach((value) => {
             value.draw();
         });
