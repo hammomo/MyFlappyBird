@@ -26,24 +26,29 @@ export class Director {
     }
 
     run() {
-        this.dataStore.get('background').draw();
-        const pencils = this.dataStore.get('pencils');
-        if(pencils[0].x + pencils[0].width <= 0 && pencils.length === 4) {
-            pencils.shift(); // 把数组的第一个元素推出
-            pencils.shift();
-        }
+        if(!this.isGameOver) {
+            this.dataStore.get('background').draw();
+            const pencils = this.dataStore.get('pencils');
+            if(pencils[0].x + pencils[0].width <= 0 && pencils.length === 4) {
+                pencils.shift(); // 把数组的第一个元素推出
+                pencils.shift();
+            }
 
-        if(pencils[0].x <= (window.innerWidth - pencils[0].width) / 2
-            && pencils.length === 2) {
-            this.createPencil();
-        }
+            if(pencils[0].x <= (window.innerWidth - pencils[0].width) / 2
+                && pencils.length === 2) {
+                this.createPencil();
+            }
 
-        this.dataStore.get('pencils').forEach((value) => {
-            value.draw();
-        });
-        this.dataStore.get('land').draw();
-        let timer = requestAnimationFrame(() => this.run());
-        this.dataStore.put('timer', timer);
-        // cancelAnimationFrame(this.dataStore.get('timer'));
+            this.dataStore.get('pencils').forEach((value) => {
+                value.draw();
+            });
+            this.dataStore.get('land').draw();
+            let timer = requestAnimationFrame(() => this.run());
+            this.dataStore.put('timer', timer);
+        } else {
+            console.log('游戏结束');
+            cancelAnimationFrame(this.dataStore.get('timer'));
+            this.dataStore.destroy(); // 内存释放
+        }
     }
 }
