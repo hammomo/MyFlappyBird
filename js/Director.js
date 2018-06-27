@@ -57,7 +57,7 @@ export class Director {
 
         // 小鸟的边框模型
         const birdsBorder = {
-            top: birds.y[0],
+            top: birds.birdsY[0],
             bottom: birds.birdsY[0] + birds.birdsHeight[0],
             left: birds.birdsX[0],
             right: birds.birdsX[0] + birds.birdsWidth[0]
@@ -106,6 +106,7 @@ export class Director {
             this.dataStore.put('timer', timer);
         } else {
             console.log('游戏结束');
+            this.dataStore.get('startButton').draw();
             cancelAnimationFrame(this.dataStore.get('timer'));
             this.dataStore.destroy(); // 内存释放
         }
