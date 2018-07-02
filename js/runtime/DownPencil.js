@@ -9,7 +9,7 @@ export class DownPencil extends Pencil {
     }
 
     draw() {
-        const gap = window.innerHeight / 5;
+        const gap = window.innerHeight / 4;
         this.y = this.top + gap; // 左上角y的位置
         super.draw();
     }

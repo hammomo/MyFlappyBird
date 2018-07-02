@@ -7,7 +7,7 @@ export class StartButton extends Sprite {
         super(image,
             0, 0, image.width, image.height,
             (window.innerWidth - image.width) / 2,
-            (window.innerWidth - image.height) / 2.5,
+            (window.innerWidth - image.height),
             image.width, image.height
             );
     }
