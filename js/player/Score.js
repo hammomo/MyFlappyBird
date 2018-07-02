@@ -14,8 +14,8 @@ export class Score {
         this.ctx.fillStyle = '#3b312d';
         this.ctx.fillText(
             this.scoreNumber,
-            window.innerWidth / 2,
-            window.innerHeight / 18,
+            DataStore.getInstance().canvas.width / 2,
+            DataStore.getInstance().canvas.height / 15,
             1000
         );
     }

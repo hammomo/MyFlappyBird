@@ -10,7 +10,7 @@ import {Score} from "./js/player/Score.js";
 
 export class Main {
     constructor() {
-        this.canvas = document.getElementById('game_canvas');
+        this.canvas = wx.createCanvas();
         this.ctx = this.canvas.getContext('2d');
         this.dataStore = DataStore.getInstance();
         this.director = Director.getInstance();
@@ -19,6 +19,7 @@ export class Main {
     }
 
     onResourceFirstLoaded(map) {
+        this.dataStore.canvas = this.canvas;
         this.dataStore.ctx = this.ctx;
         this.dataStore.res = map;
         this.init();
@@ -42,9 +43,7 @@ export class Main {
     }
 
     registerEvent() {
-        this.canvas.addEventListener('touchstart', e => {
-            // 屏蔽掉JS事件冒泡
-            e.preventDefault();
+        wx.onTouchStart(() => {
             if (this.director.isGameOver) {
                 console.log('游戏重新开始');
                 this.init();

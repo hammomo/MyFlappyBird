@@ -2,6 +2,7 @@
 // 循环渲染三只小鸟
 // 其实是渲染图片的三个部分
 import {Sprite} from "../base/Sprite.js";
+import {DataStore} from "../base/DataStore.js";
 
 export class Birds extends Sprite {
     constructor() {
@@ -16,9 +17,9 @@ export class Birds extends Sprite {
         this.clippingY = [10, 10, 10];
         this.clippingWidth = [34, 34, 34];
         this.clippingHeight = [24, 24, 24];
-        const birdX = window.innerWidth / 4;
+        const birdX = DataStore.getInstance().canvas.width / 3;
         this.birdsX = [birdX, birdX, birdX];
-        const birdY = window.innerHeight / 2;
+        const birdY = DataStore.getInstance().canvas.height / 2;
         this.birdsY = [birdY, birdY, birdY];
         const birdWidth = 34;
         this.birdsWidth = [birdWidth, birdWidth, birdWidth];
@@ -42,7 +43,7 @@ export class Birds extends Sprite {
 
         // 模拟自由落体
         const g = 0.98 / 2; // 模拟重力加速度
-        const offsetUp = window.innerHeight / 20; // 模拟偏移量
+        const offsetUp = DataStore.getInstance().canvas.height / 20; // 模拟偏移量
         const offsetY = (g * this.time * (this.time -offsetUp)) / 2;
 
         for (let i = 0; i <= 2; i++) {
