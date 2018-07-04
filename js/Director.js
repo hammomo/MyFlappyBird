@@ -84,6 +84,11 @@ export class Director {
         }
         if(birds.birdsX[0] > pencils[0].x + pencils[0].width
         && score.isScore) {
+            wx.vibrateShort({
+                success: function () {
+                    console.log('振动');
+                }
+            });
             score.isScore = false;
             score.scoreNumber++;
         }
@@ -118,6 +123,8 @@ export class Director {
             this.dataStore.get('startButton').draw();
             cancelAnimationFrame(this.dataStore.get('timer'));
             this.dataStore.destroy(); // 内存释放
+            // 微信小游戏垃圾回收机制
+            wx.triggerGC();
         }
     }
 }
